@@ -25,6 +25,16 @@ st.set_page_config(
     layout="wide"
 )
 
+# Esconder cabeçalho e menu padrão do Streamlit
+esconder_menu = """
+    <style>
+    header {visibility: hidden;}
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    </style>
+"""
+st.markdown(esconder_menu, unsafe_allow_html=True)
+
 st.markdown("""
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
