@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import yfinance as yf
+import time
 from datetime import datetime
 import plotly.express as px
 import plotly.graph_objects as go
@@ -20,20 +21,10 @@ from simulador import (
 
 
 st.set_page_config(
-    page_title="InvestScore",
+    page_title="InvestScore Europa",
     page_icon="📊",
     layout="wide"
 )
-
-# Esconder cabeçalho e menu padrão do Streamlit
-esconder_menu = """
-    <style>
-    header {visibility: hidden;}
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    </style>
-"""
-st.markdown(esconder_menu, unsafe_allow_html=True)
 
 st.markdown("""
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,6 +77,62 @@ html, body, [class*="css"] {
 }
 .stApp [data-baseweb="tab-highlight"] {
     background-color: var(--gold) !important;
+}
+/* SIDEBAR */
+[data-testid="stSidebar"] {
+    background-color: var(--bg-deep) !important;
+    border-right: 1px solid var(--panel-line);
+}
+[data-testid="stSidebar"] * {
+    color: var(--parchment-dim) !important;
+}
+/* WIDGETS NATIVOS (selectbox, input numerico, texto, slider, botao, checkbox) */
+.stApp [data-baseweb="select"] > div,
+.stApp [data-baseweb="base-input"],
+.stApp input,
+.stApp textarea {
+    background-color: var(--panel) !important;
+    border-color: var(--panel-line) !important;
+    color: var(--parchment) !important;
+}
+.stApp [data-baseweb="select"] span,
+.stApp [data-baseweb="select"] div {
+    color: var(--parchment) !important;
+}
+.stApp [role="listbox"],
+.stApp [data-baseweb="popover"] {
+    background-color: var(--panel) !important;
+}
+.stApp [role="option"] {
+    background-color: var(--panel) !important;
+    color: var(--parchment) !important;
+}
+.stApp button[kind="secondary"],
+.stApp button[kind="primary"],
+.stApp .stButton > button {
+    background-color: var(--panel) !important;
+    border: 1px solid var(--gold) !important;
+    color: var(--gold-bright) !important;
+}
+.stApp .stButton > button:hover {
+    background-color: var(--gold) !important;
+    color: var(--bg-deep) !important;
+}
+.stApp .stButton > button p {
+    color: inherit !important;
+}
+.stApp [data-testid="stNumberInputStepDown"],
+.stApp [data-testid="stNumberInputStepUp"] {
+    background-color: var(--panel) !important;
+    color: var(--parchment) !important;
+    border-color: var(--panel-line) !important;
+}
+.stApp [data-baseweb="slider"] [role="slider"] {
+    background-color: var(--gold) !important;
+}
+.stApp [data-baseweb="checkbox"] label span:first-child {
+    background-color: var(--panel) !important;
+    border-color: var(--panel-line) !important;
 }
 /* HERO */
 .hero {
@@ -972,12 +1019,14 @@ def filtrar_carteira(perfil, resultados):
     return carteira
 
 
-@st.cache_data(ttl=900, show_spinner=False)
+@st.cache_data(ttl=14400, show_spinner=False)
 def carregar_resultados(tickers_para_carregar):
     resultados = []
 
-    for ticker in tickers_para_carregar:
+    for i, ticker in enumerate(tickers_para_carregar):
         try:
+            if i > 0:
+                time.sleep(0.15)
             data = get_data(ticker)
             ind = calculate_indicators(data)
 
@@ -1023,24 +1072,29 @@ def carregar_resultados(tickers_para_carregar):
 
 st.markdown("""
 <div class='hero'>
-    <div class="hero-eyebrow"><span class="brand-mark"></span>Bem · Vindo</div>
-    <h1>InvestScore</h1>
+    <div class="hero-eyebrow"><span class="brand-mark"></span>Método Barsi · Zona Euro</div>
+    <h1>InvestScore Europa</h1>
     <div>Análise de ações da Zona Euro, objetiva e profissional</div>
 </div>
 """, unsafe_allow_html=True)
 
 with st.sidebar:
     st.markdown(
-        "<div class='sidebar-brand'><span class='brand-mark'></span><span class='name'>InvestScore</span></div>",
+        "<div class='sidebar-brand'><span class='brand-mark'></span><span class='name'>InvestScore Europa</span></div>",
         unsafe_allow_html=True
     )
     st.markdown("<span class='badge-blue'>ZONA EURO</span>", unsafe_allow_html=True)
-    modo_rapido = False
-    total_tickers = len(tickers)
-    limite_padrao = min(40, total_tickers)
-    limite = st.slider("Empresas carregadas", 10, total_tickers, limite_padrao) if total_tickers >= 10 else total_tickers
 
-if modo_rapido and len(tickers) > limite:
+total_tickers = len(tickers)
+# Limite fixo (sem controlo visível) em vez de um checkbox/slider na barra
+# lateral: carregar as 208 empresas todas de rajada, a cada sessão nova,
+# aumenta o risco real de bloqueio temporário pelo Yahoo Finance (ver nota
+# em data.py sobre o erro 429 "too many requests"). 60 é um equilíbrio
+# entre cobertura e fiabilidade — pode ser ajustado aqui se quiseres.
+LIMITE_TICKERS = 60
+limite = min(LIMITE_TICKERS, total_tickers)
+
+if len(tickers) > limite:
     tickers_para_carregar = tickers[:limite]
 else:
     tickers_para_carregar = tickers
@@ -1408,7 +1462,7 @@ with aba_dashboard:
     st.caption(f"Atualizado em: {datetime.now().strftime('%H:%M:%S')}")
 
     ativos_abaixo = selecionar_abaixo_teto(resultados, limite=len(resultados))
-    melhor_oportunidade = ativos_abaixo[0] if ativos_abaixo else max(resultados, key=lambda x: x["score"])
+    melhor_oportunidade = max(resultados, key=lambda x: x["score"])
     setores_df = resumo_setores_dashboard(resultados)
 
     d1, d2, d3, d4, d5 = st.columns(5, gap="medium")

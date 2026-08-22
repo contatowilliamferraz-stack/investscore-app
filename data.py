@@ -1,3 +1,4 @@
+import time
 import pandas as pd
 import yfinance as yf
 
@@ -11,26 +12,53 @@ def _safe_float(value, default=0.0):
         return default
 
 
+def _com_retry(func, tentativas=3, espera_inicial=1.5):
+    """
+    O Yahoo Finance bloqueia temporariamente pedidos em rajada (erro 429,
+    "too many requests"), o que acontece com mais frequência em serviços
+    de alojamento partilhado como o Streamlit Community Cloud — onde
+    muitos projetos diferentes de pessoas diferentes partilham o mesmo
+    intervalo de IPs, e por isso o "orçamento" de pedidos por IP esgota-se
+    mais depressa do que aconteceria a correr isto localmente.
+
+    Esta função tenta de novo, com espera crescente entre tentativas
+    (1.5s, depois 3s, depois 6s), antes de desistir e deixar o erro
+    subir para quem chamou.
+    """
+    ultimo_erro = None
+    for tentativa in range(tentativas):
+        try:
+            return func()
+        except Exception as e:
+            ultimo_erro = e
+            if tentativa < tentativas - 1:
+                time.sleep(espera_inicial * (2 ** tentativa))
+    raise ultimo_erro
+
+
 def get_data(ticker):
     stock = yf.Ticker(ticker)
 
-    info = stock.info or {}
+    try:
+        info = _com_retry(lambda: stock.info or {})
+    except Exception:
+        info = {}
 
     fast = {}
     try:
-        fast = stock.fast_info or {}
+        fast = _com_retry(lambda: stock.fast_info or {})
     except Exception:
         fast = {}
 
     hist = pd.DataFrame()
     try:
-        hist = stock.history(period="10d", auto_adjust=False)
+        hist = _com_retry(lambda: stock.history(period="10d", auto_adjust=False))
     except Exception:
         hist = pd.DataFrame()
 
     dividends = pd.Series(dtype=float)
     try:
-        dividends = stock.dividends
+        dividends = _com_retry(lambda: stock.dividends)
     except Exception:
         dividends = pd.Series(dtype=float)
 
