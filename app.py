@@ -1086,7 +1086,7 @@ with st.sidebar:
         "<div class='sidebar-brand'><span class='brand-mark'></span><span class='name'>InvestScore Europa</span></div>",
         unsafe_allow_html=True
     )
-    st.markdown("<span class='badge-blue'>ZONA EURO</span>", unsafe_allow_html=True)
+    st.markdown("<span class='badge-blue'>CRIADO POR WILLIAM FERRAZ</span>", unsafe_allow_html=True)
 
 total_tickers = len(tickers)
 # Sem limite artificial: carrega o universo completo. Combinado com o
