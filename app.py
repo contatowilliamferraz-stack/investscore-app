@@ -1025,7 +1025,7 @@ with st.sidebar:
         unsafe_allow_html=True
     )
     st.markdown("<span class='badge-blue'>ZONA EURO</span>", unsafe_allow_html=True)
-    modo_rapido = st.checkbox("Inicialização mais rápida", value=True)
+    modo_rapido = False
     total_tickers = len(tickers)
     limite_padrao = min(40, total_tickers)
     limite = st.slider("Empresas carregadas", 10, total_tickers, limite_padrao) if total_tickers >= 10 else total_tickers
