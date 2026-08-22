@@ -53,8 +53,11 @@ html, body, [class*="css"] {
         linear-gradient(180deg, var(--bg-deep) 0%, var(--bg) 100%);
 }
 [data-testid="stMainBlockContainer"] {
-    padding: 1rem 2rem;
+    padding: 0.5rem 2rem 1rem 2rem;
     max-width: 1400px;
+}
+header[data-testid="stHeader"] {
+    background-color: var(--bg) !important;
 }
 .stApp h1, .stApp h2, .stApp h3, .stApp h4 {
     font-family: 'Fraunces', serif;
@@ -1086,12 +1089,14 @@ with st.sidebar:
     st.markdown("<span class='badge-blue'>ZONA EURO</span>", unsafe_allow_html=True)
 
 total_tickers = len(tickers)
-# Limite fixo (sem controlo visível) em vez de um checkbox/slider na barra
-# lateral: carregar as 208 empresas todas de rajada, a cada sessão nova,
-# aumenta o risco real de bloqueio temporário pelo Yahoo Finance (ver nota
-# em data.py sobre o erro 429 "too many requests"). 60 é um equilíbrio
-# entre cobertura e fiabilidade — pode ser ajustado aqui se quiseres.
-LIMITE_TICKERS = 60
+# Sem limite artificial: carrega o universo completo. Combinado com o
+# cache de 4h, as tentativas automáticas em caso de bloqueio (429) e a
+# pausa entre pedidos em data.py/carregar_resultados, o risco de bloqueio
+# pelo Yahoo Finance é mitigado sem sacrificar cobertura. Se voltares a
+# ver o erro "Nenhum resultado foi gerado", isso é sinal de que o Yahoo
+# bloqueou mesmo assim — nesse caso, reduzir este valor é o primeiro
+# ajuste a fazer.
+LIMITE_TICKERS = total_tickers
 limite = min(LIMITE_TICKERS, total_tickers)
 
 if len(tickers) > limite:
