@@ -1075,7 +1075,7 @@ def carregar_resultados(tickers_para_carregar):
 
 st.markdown("""
 <div class='hero'>
-    <div class="hero-eyebrow"><span class="brand-mark"></span>Método Barsi · Zona Euro</div>
+    <div class="hero-eyebrow"><span class="brand-mark"></span>SEJA · BEM-VINDO</div>
     <h1>InvestScore Europa</h1>
     <div>Análise de ações da Zona Euro, objetiva e profissional</div>
 </div>
