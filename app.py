@@ -1086,7 +1086,7 @@ with st.sidebar:
         "<div class='sidebar-brand'><span class='brand-mark'></span><span class='name'><span style='font-weight: 800;'>InvestScore</span> <span style='font-weight: 300; opacity: 0.7;'>Europa</span></span></div>",
         unsafe_allow_html=True
     )
-    st.markdown("<span class='badge-blue'>CRIADO POR WILLIAMS SILVA</span>", unsafe_allow_html=True)
+    st.markdown("<span class='badge-blue'>CRIADO POR WILLIAMS CAETANO</span>", unsafe_allow_html=True)
 
 total_tickers = len(tickers)
 # Sem limite artificial: carrega o universo completo. Combinado com o
