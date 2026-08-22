@@ -1090,7 +1090,7 @@ with st.sidebar:
 
 total_tickers = len(tickers)
 # Sem limite artificial: carrega o universo completo. Combinado com o
-# cache de 4h, as tentativas automáticas em caso de bloqueio (429) e a
+# cache de 5min, as tentativas automáticas em caso de bloqueio (429) e a
 # pausa entre pedidos em data.py/carregar_resultados, o risco de bloqueio
 # pelo Yahoo Finance é mitigado sem sacrificar cobertura. Se voltares a
 # ver o erro "Nenhum resultado foi gerado", isso é sinal de que o Yahoo
