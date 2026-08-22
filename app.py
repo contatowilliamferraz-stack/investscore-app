@@ -1074,19 +1074,19 @@ def carregar_resultados(tickers_para_carregar):
 
 
 st.markdown("""
-<div class='hero'>
-    <div class="hero-eyebrow"><span class="brand-mark"></span>SEJA · BEM-VINDO</div>
-    <h1>InvestScore Europa</h1>
-    <div>Análise de ações da Zona Euro, objetiva e profissional</div>
+<div class="hero">
+    <div class="hero-eyebrow"><span class="brand-mark"></span>SEJA - BEM-VINDO</div>
+    <h1><span style="font-weight: 800;">InvestScore</span> <span style="font-weight: 300; opacity: 0.7; font-size: 0.85em;">Europa</span></h1>
+    <div>Análise inteligente de ações e dividendos da Zona Euro</div>
 </div>
 """, unsafe_allow_html=True)
 
 with st.sidebar:
     st.markdown(
-        "<div class='sidebar-brand'><span class='brand-mark'></span><span class='name'>InvestScore Europa</span></div>",
+        "<div class='sidebar-brand'><span class='brand-mark'></span><span class='name'><span style='font-weight: 800;'>InvestScore</span> <span style='font-weight: 300; opacity: 0.7;'>Europa</span></span></div>",
         unsafe_allow_html=True
     )
-    st.markdown("<span class='badge-blue'>CRIADO POR WILLIAM FERRAZ</span>", unsafe_allow_html=True)
+    st.markdown("<span class='badge-blue'>CRIADO POR WILLIAMS SILVA</span>", unsafe_allow_html=True)
 
 total_tickers = len(tickers)
 # Sem limite artificial: carrega o universo completo. Combinado com o
