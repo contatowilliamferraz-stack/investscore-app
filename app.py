@@ -140,11 +140,15 @@ header[data-testid="stHeader"] {
 /* HERO */
 .hero {
     padding: 22px 26px;
-    border-radius: 4px;
-    background: var(--panel);
+    border-radius: 8px;
+    background:
+        radial-gradient(ellipse 420px 220px at 96% 0%, rgba(201,161,59,0.16), transparent 65%),
+        var(--panel);
     border: 1px solid var(--panel-line);
     border-left: 3px solid var(--gold);
     margin: 22px 0 12px 0;
+    position: relative;
+    overflow: hidden;
 }
 .hero h1 {
     font-family: 'Fraunces', serif;
@@ -209,26 +213,34 @@ header[data-testid="stHeader"] {
 }
 /* CARDS */
 .card {
-    padding: 14px;
-    border-radius: 4px;
+    padding: 18px;
+    border-radius: 8px;
     background: var(--panel);
     border: 1px solid var(--panel-line);
     margin: 34px 0 14px 0;
 }
 .kpi-box {
     padding: 12px 14px;
-    border-radius: 4px;
+    border-radius: 8px;
     background: var(--panel);
     border: 1px solid var(--panel-line);
     margin-bottom: 10px;
 }
 .kpi-card {
-    padding: 16px 18px;
-    border-radius: 4px;
+    padding: 22px 24px;
+    border-radius: 10px;
     background: var(--panel);
     border: 1px solid var(--panel-line);
-    min-height: 126px;
+    min-height: 138px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+}
+.kpi-card.featured {
+    background: linear-gradient(135deg, rgba(201,161,59,0.22), rgba(143,190,151,0.10));
+    border: 1px solid var(--gold);
+    box-shadow: 0 14px 34px rgba(201,161,59,0.16);
+}
+.kpi-card.featured .kpi-label {
+    color: var(--gold-bright);
 }
 .kpi-label {
     font-family: 'IBM Plex Mono', monospace;
@@ -240,7 +252,7 @@ header[data-testid="stHeader"] {
 }
 .kpi-value {
     font-family: 'Fraunces', serif;
-    font-size: 2.25rem;
+    font-size: 2.7rem;
     line-height: 1;
     font-weight: 700;
     margin-bottom: 8px;
@@ -254,7 +266,7 @@ header[data-testid="stHeader"] {
 }
 .insight-box {
     padding: 14px 16px;
-    border-radius: 4px;
+    border-radius: 8px;
     background: var(--bg-deep);
     border: 1px solid var(--panel-line);
     border-left: 3px solid var(--sage);
@@ -291,8 +303,8 @@ header[data-testid="stHeader"] {
     background: linear-gradient(90deg, var(--sage), var(--gold-bright));
 }
 .asset-card {
-    padding: 16px 18px;
-    border-radius: 4px;
+    padding: 20px 22px;
+    border-radius: 8px;
     background: var(--panel);
     border: 1px solid var(--panel-line);
     box-shadow: 0 12px 28px rgba(0,0,0,0.28);
@@ -303,14 +315,14 @@ header[data-testid="stHeader"] {
 .asset-ticker { color: var(--parchment); font-family: 'Fraunces', serif; font-style: italic; font-size: 1.15rem; font-weight: 600; margin: 0 0 8px 0; }
 .asset-level { color: var(--gold-bright); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.03em; margin: 0 0 14px 0; font-family: 'IBM Plex Mono', monospace; }
 .asset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-.asset-box { padding: 10px 12px; border-radius: 4px; background: var(--bg-deep); border: 1px solid var(--panel-line); }
+.asset-box { padding: 10px 12px; border-radius: 8px; background: var(--bg-deep); border: 1px solid var(--panel-line); }
 .asset-box-label { color: var(--parchment-dim); font-size: 0.74rem; font-weight: 500; margin-bottom: 4px; font-family: 'IBM Plex Mono', monospace; }
 .asset-box-value { color: var(--parchment); font-family: 'IBM Plex Mono', monospace; font-size: 1.0rem; font-weight: 600; }
 .asset-line { color: var(--parchment-dim); font-size: 0.91rem; margin: 0 0 7px 0; }
 .asset-divider { height: 1px; background: var(--panel-line); margin: 12px 0; }
 .tese-card {
     padding: 14px 16px;
-    border-radius: 4px;
+    border-radius: 8px;
     background: var(--panel);
     border: 1px solid var(--panel-line);
     border-left: 3px solid var(--gold);
@@ -320,7 +332,7 @@ header[data-testid="stHeader"] {
 .tese-line { color: var(--parchment-dim); font-size: 0.90rem; margin-bottom: 5px; }
 .compare-mini-card {
     padding: 14px 16px;
-    border-radius: 4px;
+    border-radius: 8px;
     background: var(--panel);
     border: 1px solid var(--panel-line);
     min-height: 120px;
@@ -330,7 +342,7 @@ header[data-testid="stHeader"] {
 .compare-mini-line { color: var(--parchment-dim); font-size: 0.90rem; margin-bottom: 5px; }
 .profile-card {
     padding: 16px 18px;
-    border-radius: 4px;
+    border-radius: 8px;
     background: var(--panel);
     border: 1px solid var(--panel-line);
     box-shadow: 0 12px 28px rgba(0,0,0,0.24);
@@ -342,7 +354,7 @@ header[data-testid="stHeader"] {
     margin-top: 24px;
     margin-bottom: 14px;
     padding: 20px 22px;
-    border-radius: 4px;
+    border-radius: 8px;
     background: var(--panel);
     border: 1px solid var(--panel-line);
     box-shadow: 0 12px 28px rgba(0,0,0,0.24);
@@ -1074,23 +1086,23 @@ def carregar_resultados(tickers_para_carregar):
 
 
 st.markdown("""
-<div class="hero">
-    <div class="hero-eyebrow"><span class="brand-mark"></span>SEJA - BEM-VINDO</div>
-    <h1><span style="font-weight: 800;">InvestScore</span> <span style="font-weight: 300; opacity: 0.7; font-size: 0.85em;">Europa</span></h1>
-    <div>Análise inteligente de ações e dividendos da Zona Euro</div>
+<div class='hero'>
+    <div class="hero-eyebrow"><span class="brand-mark"></span>Método Barsi · Zona Euro</div>
+    <h1>InvestScore Europa</h1>
+    <div>Análise de ações da Zona Euro, objetiva e profissional</div>
 </div>
 """, unsafe_allow_html=True)
 
 with st.sidebar:
     st.markdown(
-        "<div class='sidebar-brand'><span class='brand-mark'></span><span class='name'><span style='font-weight: 800;'>InvestScore</span> <span style='font-weight: 300; opacity: 0.7;'>Europa</span></span></div>",
+        "<div class='sidebar-brand'><span class='brand-mark'></span><span class='name'>InvestScore Europa</span></div>",
         unsafe_allow_html=True
     )
-    st.markdown("<span class='badge-blue'>CRIADO POR WILLIAMS CAETANO</span>", unsafe_allow_html=True)
+    st.markdown("<span class='badge-blue'>ZONA EURO</span>", unsafe_allow_html=True)
 
 total_tickers = len(tickers)
 # Sem limite artificial: carrega o universo completo. Combinado com o
-# cache de 5min, as tentativas automáticas em caso de bloqueio (429) e a
+# cache de 4h, as tentativas automáticas em caso de bloqueio (429) e a
 # pausa entre pedidos em data.py/carregar_resultados, o risco de bloqueio
 # pelo Yahoo Finance é mitigado sem sacrificar cobertura. Se voltares a
 # ver o erro "Nenhum resultado foi gerado", isso é sinal de que o Yahoo
@@ -1171,10 +1183,11 @@ def alertas_dashboard(resultados):
 def render_card_dashboard(item, mostrar_setor=True):
     render_asset_card(item, mostrar_setor=mostrar_setor, mostrar_fechamento=False, mostrar_variacao=False)
 
-def render_kpi_card(titulo, valor, subtitulo=""):
+def render_kpi_card(titulo, valor, subtitulo="", destaque=False):
+    classe = "kpi-card featured" if destaque else "kpi-card"
     st.markdown(
         f"""
-        <div class="kpi-card">
+        <div class="{classe}">
             <div class="kpi-label">{titulo}</div>
             <div class="kpi-value">{valor}</div>
             <div class="kpi-sub">{subtitulo}</div>
@@ -1478,7 +1491,7 @@ with aba_dashboard:
     with d3:
         render_kpi_card("Abaixo do teto", len(ativos_abaixo), "Oportunidades do momento")
     with d4:
-        render_kpi_card("Melhor", melhor_oportunidade["score"], melhor_oportunidade["ticker"])
+        render_kpi_card("Melhor", melhor_oportunidade["score"], melhor_oportunidade["ticker"], destaque=True)
     with d5:
         if not setores_df.empty:
             render_kpi_card("Setor mais forte", str(setores_df.iloc[0]["Score Médio"]).replace(".", ","), setores_df.iloc[0]["Setor"])
